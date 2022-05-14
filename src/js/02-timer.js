@@ -10,7 +10,6 @@ const refs = {
   minutes: document.querySelector('[data-minutes]'),
   seconds: document.querySelector('[data-seconds]'),
 };
-const TIME = 165259803455;
 let timer = 0;
 let timerId = 0;
 let selectedTime = null;
@@ -27,7 +26,7 @@ const options = {
     } else {
       refs.buttonStart.disabled = false;
       selectedTime = selectedDates[0];
-      console.log(selectedTime.getTime());
+      // console.log(selectedTime.getTime());
       return selectedTime;
     }
   },
@@ -36,7 +35,6 @@ const options = {
   },
 };
 flatpickr('#datetime-picker', options);
-console.log(selectedTime);
 
 function pad(value) {
   return String(value).padStart(2, '0');
@@ -60,9 +58,9 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
-console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
+// console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
+// console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
+// console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
 
 refs.buttonStart.addEventListener('click', onHandleButtonClick);
 
@@ -77,8 +75,6 @@ function stopTimer() {
   timerId = 0;
 }
 function onHandleButtonClick() {
-  console.dir(refs.picker.value);
-
   if (timerId === 0) {
     startTimer(timerId);
   } else {
@@ -87,10 +83,8 @@ function onHandleButtonClick() {
 }
 
 function showTimer() {
-  timer = TIME - Date.now();
-  console.log(timer);
+  timer = new Date(refs.picker.value) - Date.now();
   const { days, hours, minutes, seconds } = convertMs(timer);
-  console.log(days, hours, minutes, seconds);
   refs.day.textContent = pad(days);
   refs.hours.textContent = pad(hours);
   refs.minutes.textContent = minutes;
