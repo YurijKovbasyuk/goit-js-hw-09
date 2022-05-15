@@ -87,6 +87,6 @@ function showTimer() {
   const { days, hours, minutes, seconds } = convertMs(timer);
   refs.day.textContent = pad(days);
   refs.hours.textContent = pad(hours);
-  refs.minutes.textContent = minutes;
-  refs.seconds.textContent = seconds;
+  refs.minutes.textContent = pad(minutes);
+  refs.seconds.textContent = pad(seconds);
 }

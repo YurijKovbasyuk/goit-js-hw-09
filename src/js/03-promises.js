@@ -1,26 +1,50 @@
-import Notiflix from 'notiflix';
+// import { Loading } from 'notiflix';
 
 const refs = {
   createButton: document.querySelector('button'),
-  delay: document.querySelector('input[name="delay"]'),
-  step: document.querySelector('input[name="step"]'),
+  firstDelay: document.querySelector('input[name="delay"]'),
+  delay: document.querySelector('input[name="step"]'),
   amount: document.querySelector('input[name="amount"]'),
 };
 
-refs.createButton.addEventListener('submit', onHandleClick);
+refs.createButton.addEventListener('click', onHandleClick);
 
-function onHandleClick(e, { delay }) {
-  for (var i = 0; i <= 10; i++) {
-    setTimeout(funcBefore, delay);
+let delay = refs.step.value;
+let amount = refs.amount.value;
+let firstDelay = refs.delay.value;
+function onHandleClick(e, delay, firstDelay, amount) {
+  e.preventDefault();
+
+  setTimeout(createPromise(), firstDelay)
+    .then((position, delay) => {
+      console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+    })
+    .catch((position, delay) => {
+      console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+    });
+
+  for (let position = 1; i <= amount; i++) {
+    let delay = 
+    createPromise(position, delay)
+      .then((position, delay) => {
+        console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+      })
+      .catch((position, delay) => {
+        console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+      });
   }
 }
-
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
-  if (shouldResolve) {
-    // Fulfill
-  } else {
-    // Reject
-  }
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (shouldResolve) {
+        // Fulfill
+        resolve('done');
+      } else {
+        // Reject
+        reject('not');
+      }
+    });
+  });
 }
-console.log(refs.delay);
