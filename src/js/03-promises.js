@@ -13,7 +13,7 @@ function onHandleClick(e) {
   e.preventDefault();
 
   // setTimeout(() => {
-  let delay = refs.delay.value;
+  let countDelay = 0;
   for (let position = 1; position <= refs.amount.value; position++) {
     if (position === 1) {
       createPromise(position)
@@ -26,17 +26,19 @@ function onHandleClick(e) {
           console.log(`❌ Rejected promise ${position} in ${refs.firstDelay.value}ms`);
         });
     } else {
+      const delay = Number(refs.firstDelay.value) + Number(refs.delay.value);
+      countDelay = delay + countDelay;
       setTimeout(() => {
         createPromise(position)
           .then(position => {
-            Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${refs.delay.value}ms`);
-            console.log(`✅ Fulfilled promise ${position} in ${refs.delay.value}ms`);
+            Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${countDelay}ms`);
+            console.log(`✅ Fulfilled promise ${position} in ${countDelay}ms`);
           })
-          .catch((position, delay) => {
-            Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${refs.delay.value}ms`);
-            console.log(`❌ Rejected promise ${position} in ${refs.delay.value}ms`);
+          .catch(position => {
+            Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${countDelay}ms`);
+            console.log(`❌ Rejected promise ${position} in ${countDelay}ms`);
           });
-      }, refs.delay.value);
+      }, countDelay);
     }
   }
   // }, refs.delay.value);
