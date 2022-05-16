@@ -16,3 +16,18 @@ img {
   display: block;
   max-width: 100%;
 }
+.timer {
+display: flex;
+  flex-direction: row;
+}
+.field{
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: aqua;
+}
+.value{
+  font-size: 36px;
+    line-height: 2;
+}
