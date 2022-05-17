@@ -16,15 +16,21 @@ function onHandleClick(e) {
   let countDelay = 0;
   for (let position = 1; position <= refs.amount.value; position++) {
     if (position === 1) {
-      createPromise(position)
-        .then(position => {
-          Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${refs.firstDelay.value}ms`);
-          console.log(`✅ Fulfilled promise ${position} in ${refs.firstDelay.value}ms`);
-        })
-        .catch(position => {
-          Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${refs.firstDelay.value}ms`);
-          console.log(`❌ Rejected promise ${position} in ${refs.firstDelay.value}ms`);
-        });
+      setTimeout(() => {
+        createPromise(position)
+          .then(position => {
+            Notiflix.Notify.success(
+              `✅ Fulfilled promise ${position} in ${refs.firstDelay.value}ms`,
+            );
+            console.log(`✅ Fulfilled promise ${position} in ${refs.firstDelay.value}ms`);
+          })
+          .catch(position => {
+            Notiflix.Notify.failure(
+              `❌ Rejected promise ${position} in ${refs.firstDelay.value}ms`,
+            );
+            console.log(`❌ Rejected promise ${position} in ${refs.firstDelay.value}ms`);
+          });
+      }, refs.firstDelay.value);
     } else {
       const delay = Number(refs.firstDelay.value) + Number(refs.delay.value);
       countDelay = delay + countDelay;
@@ -46,7 +52,7 @@ function onHandleClick(e) {
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
+    
       if (shouldResolve) {
         // Fulfill
 
@@ -56,6 +62,6 @@ function createPromise(position, delay) {
 
         reject(`${position}`);
       }
-    }, refs.firstDelay.value);
+    
   });
 }
