@@ -44,7 +44,7 @@ function onHandleClick(e) {
             Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${countDelay}ms`);
             console.log(`❌ Rejected promise ${position} in ${countDelay}ms`);
           });
-      }, countDelay);
+      }, refs.delay.value);
     }
   }
   // }, refs.delay.value);
@@ -52,16 +52,14 @@ function onHandleClick(e) {
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
   return new Promise((resolve, reject) => {
-    
-      if (shouldResolve) {
-        // Fulfill
+    if (shouldResolve) {
+      // Fulfill
 
-        resolve(`${position}`);
-      } else {
-        // Reject
+      resolve(`${position}`);
+    } else {
+      // Reject
 
-        reject(`${position}`);
-      }
-    
+      reject(`${position}`);
+    }
   });
 }
